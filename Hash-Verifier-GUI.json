@@ -1,0 +1,16 @@
+{
+    "version": "0.1.7",
+    "description": "Simple GUI utility to verify hashes.",
+    "homepage": "https://github.com/IIRoan/Hash-Verifier-GUI",
+    "license": "MIT",
+    "url": "https://github.com/IIRoan/Hash-Verifier-GUI/releases/download/v0.1.7/hashverifier_0.1.7_x64-setup.exe",
+    "hash": "SHA256:0908677EEE14C695FA0F133E12D86CE5DE638230AEA59F148109426E9427F11E",
+    "bin": "hashverifier_0.1.7_x64-setup.exe",
+    "shortcuts": [
+      [
+        "hashverifier_0.1.7_x64-setup.exe",
+        "Hash Verifier GUI"
+      ]
+    ]
+  }
+  
