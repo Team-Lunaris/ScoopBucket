@@ -7,14 +7,25 @@
   "hash": "sha256:0908677eee14c695fa0f133e12d86ce5de638230aea59f148109426e9427f11e",
   "installer": {
     "script": [
-      "Start-Process -FilePath \"$dir\\hashverifier_0.1.7_x64-setup.exe\" -ArgumentList '/S', '/D=$dir' -Wait -NoNewWindow"
+      "if (!(is_admin)) {",
+      "    error 'This package requires admin rights to install'",
+      "    exit 1",
+      "}",
+      "Start-Process -FilePath \"$dir\\hashverifier_0.1.7_x64-setup.exe\" -ArgumentList '/S', '/D=$dir' -Wait -NoNewWindow -Verb RunAs"
     ]
   },
-  "bin": "hashverifier.exe",
+  "post_install": [
+    "Write-Host 'Waiting for installation to complete...'",
+    "Start-Sleep -Seconds 5"
+  ],
+  "bin": [
+    ["hashverifier.exe", "hashverifier"]
+  ],
   "shortcuts": [
     [
       "hashverifier.exe",
       "Hash Verifier GUI"
     ]
-  ]
+  ],
+  "notes": "This package requires administrator privileges to install."
 }
