@@ -11,21 +11,30 @@
       "    error 'This package requires admin rights to install'",
       "    exit 1",
       "}",
-      "Start-Process -FilePath \"$dir\\hashverifier_0.1.7_x64-setup.exe\" -ArgumentList '/S', '/D=$dir' -Wait -NoNewWindow -Verb RunAs"
+      "$proc = Start-Process \"$dir\\hashverifier_0.1.7_x64-setup.exe\" -ArgumentList '/S', \"/D=$dir\" -PassThru -Wait -Verb RunAs",
+      "if ($proc.ExitCode -ne 0) {",
+      "    error 'Installation failed!'",
+      "    exit 1",
+      "}"
     ]
   },
-  "post_install": [
-    "Write-Host 'Waiting for installation to complete...'",
-    "Start-Sleep -Seconds 5"
-  ],
-  "bin": [
-    ["hashverifier.exe", "hashverifier"]
-  ],
+  "bin": "hashverifier.exe",
   "shortcuts": [
     [
       "hashverifier.exe",
       "Hash Verifier GUI"
     ]
   ],
-  "notes": "This package requires administrator privileges to install."
+  "uninstaller": {
+    "script": [
+      "if (!(is_admin)) {",
+      "    error 'This package requires admin rights to uninstall'",
+      "    exit 1",
+      "}",
+      "if (Test-Path \"$dir\\uninstall.exe\") {",
+      "    Start-Process \"$dir\\uninstall.exe\" -ArgumentList '/S' -Wait -Verb RunAs",
+      "}"
+    ]
+  },
+  "notes": "This package requires administrator privileges to install and uninstall."
 }
